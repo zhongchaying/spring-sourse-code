@@ -1,0 +1,141 @@
+1.认识Lombok
+
+Lombok：
+    lombok是一个java库，它可以自动插入到编辑器和构建工具中，提高java的效率
+    我们不用再编写另一个getter或equals方法，使用一个注释，您的类有一个功能齐全的生成器，自动记录变量等
+    场景：编写一个实体类，编写需要的属性类型 属性后，我们需要构建无参和有参构造器，getter和setter,重写toString方法
+    通过注解引入Lombok后，我们只需要编写需要的属性类型 属性即可，构造器、toString方法可以通过对应的注解实现，不在需要我们构建
+
+2.Lombok搭建
+    在idea中下载插件
+    导入依赖
+
+2.1下载Lombok插件
+
+提前说明：
+    1.idea版本不同，如果你的idea为2020版或者之后的版本，idea中已经内置有该插件，但是建议还是检查一下；
+    2.如果你的版本不是最新的话，idea中没有内置，可以去插件中心下载Lombok插件；
+        下载：File→Setting→Plugins
+
+2.2导入Lombok依赖
+
+    pom.xml
+
+	<!--导入Lombok依赖-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <!--这里是设置作用域-->
+            <!--注释作用域，表明我想让它为全局使用-->
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+2.3测试
+
+1.常用的Lombok注解
+
+@Getter/@Setter: 作用类上，生成所有成员变量的getter/setter方法；
+	作用于成员变量上，生成该成员变量的getter/setter方法。
+
+@ToString: 作用于类，覆盖默认的toString()方法
+
+@EqualsAndHashCode: 作用于类，覆盖默认的equals和hashCode
+
+@NoArgsConstructor：生成无参构造器；
+
+@RequiredArgsConstructor：生成包含final和@NonNull注解的成员变量的构造器；
+
+@AllArgsConstructor：生成全参构造器
+
+@Data: 作用于类上，注解集合，使用它相当于使用下列注解：
+	@ToString
+	@EqualsAndHashCode
+	@Getter
+	@Setter
+	@RequiredArgsConstructor
+
+@Builder: 作用于类上，将类转变为建造者模式
+
+@Log: 作用于类上，生成日志变量
+
+2.实例
+
+/*使用Lombok注解，@Date*/
+import lombok.Data;
+
+@Data
+public class User {
+
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+
+}
+
+/*这个实体类等价于上面的实体类*/
+public class User {
+
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+
+    public User() {
+    }
+
+    public User(int id, String username, String password, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+}
+
+3.更多详细信息，使用的方法和选择添加哪一个注解，可自行搜索查阅。
+
+4.建议：程序开发过程中，代码的可读性很重要，所以是否选择使用工具提高开发效率，可根据实际情况抉择。

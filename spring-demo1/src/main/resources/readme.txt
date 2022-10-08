@@ -1,0 +1,6 @@
+Spring集成Junit步骤
+① 导入spring集成Junit的坐标
+② 使用@Runwith注解替换原来的运行期
+③ 使用@ContextConfiguration指定配置文件或配置类
+④ 使用@Autowired注入需要测试的对象
+⑤ 创建测试方法进行测试
